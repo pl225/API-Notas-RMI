@@ -33,15 +33,21 @@ public class Servidor implements ApiSd {
 
 	@Override
 	public ArrayList<Float> consultarNotas(String matricula) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return PostgreSQLJDBC.consultarNotas(matricula);
+		} catch (Exception e) {
+			throw new RemoteException(e.getMessage());
+		}
 	}
 
 
 	@Override
 	public float consultarCR(String matricula) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			return PostgreSQLJDBC.consultarCR(matricula);
+		} catch (Exception e) {
+			throw new RemoteException(e.getMessage());
+		}
 	}
         
     public static void main(String args[]) {
