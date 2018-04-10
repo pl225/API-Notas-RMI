@@ -17,7 +17,7 @@ public class Cliente {
         try {
             Registry registry = LocateRegistry.getRegistry(PORTA);
             ApiSd stub = (ApiSd) registry.lookup("api_sd");
-            float response = stub.consultarCR("201578025-2");
+            boolean response = stub.cadastrarNota("201378486-7", "IM-204", 9);
             System.out.println("response: " + response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.getMessage());

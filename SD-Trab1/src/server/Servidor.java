@@ -17,8 +17,11 @@ public class Servidor implements ApiSd {
 
     @Override
 	public boolean cadastrarNota(String matricula, String codDisciplina, float nota) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			return PostgreSQLJDBC.cadastrarNota(matricula, codDisciplina, nota);
+		} catch (Exception e) {
+			throw new RemoteException(e.getMessage());
+		}
 	}
   	
 	@Override

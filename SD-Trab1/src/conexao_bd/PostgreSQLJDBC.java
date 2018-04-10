@@ -1,10 +1,13 @@
 package conexao_bd;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.postgresql.util.PSQLException;
 
 public class PostgreSQLJDBC {
 	
@@ -98,6 +101,44 @@ public class PostgreSQLJDBC {
 			desconectar();
 		}		
 	}
+	
+	public static boolean cadastrarNota(String matricula, String codDisciplina, float nota) throws Exception{
+  		
+		conectar();
+        
+		try {
+			
+			try {
+           
+	           String sql = "INSERT INTO trab1.historico (matricula, cod_disciplina, nota) VALUES (?,?,?)";
+	
+	           PreparedStatement ps = conn.prepareStatement(sql);
+	           ps.setString(1, matricula);
+	           ps.setString(2, codDisciplina);
+	           ps.setFloat(3, nota);
+	           ps.execute();
+	           ps.close();
+	           
+			} catch (PSQLException e) {
+				String sql = "UPDATE trab1.historico SET nota = ? WHERE cod_disciplina = ? AND matricula = ?";
+				
+				PreparedStatement ps = conn.prepareStatement(sql);
+		        ps.setString(3, matricula);
+		        ps.setString(2, codDisciplina);
+		        ps.setFloat(1, nota);
+		        ps.execute();
+		        ps.close();
+		        
+			}
+			
+			return true;
+           
+        } catch (Exception e) {
+           throw new Exception("Ocorreu um erro durante a transação.");
+        } finally {
+        	desconectar();
+        }
+    }
 
 	
 }
