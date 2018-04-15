@@ -63,7 +63,7 @@ public class Servidor implements ApiSd {
             Registry registry = LocateRegistry.createRegistry(PORTA);
             registry.bind("api_sd", stub);
 
-            System.err.println("Server ready");
+            System.err.println("Servidor pronto");
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());
             e.printStackTrace();

@@ -62,7 +62,7 @@ public class PostgreSQLJDBC {
 			
 			stmt = conn.createStatement();
 			results = stmt.executeQuery("SELECT nota AS Nota"
-					+ "FROM trab1.historico WHERE matricula='" + matricula + "'");
+					+ " FROM trab1.historico WHERE matricula='" + matricula + "'");
 			
 			ArrayList<Float> notas = new ArrayList<>(); 
 			
@@ -88,10 +88,10 @@ public class PostgreSQLJDBC {
 		try {
 			
 			stmt = conn.createStatement();
-			results = stmt.executeQuery("SELECT AVG(nota) AS CR "
+			results = stmt.executeQuery("SELECT AVG(nota) AS CR, COUNT(*) AS T "
 					+ "FROM trab1.historico WHERE matricula='" + matricula + "'");
 			
-			if (results.next()){
+			if (results.next() && results.getInt("T") > 0){
 				return results.getFloat("CR");
 			} else {
 				throw new Exception("Não existe nenhuma nota correspondente aos dados informados.");
